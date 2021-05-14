@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: todolist-backend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: kubernetes.docker.internal
+      http:
+       paths:
+        - path: /backend(/|$)(.*)
+          backend:
+            serviceName: backend-service
+            servicePort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: todolist-frontend-ingress
+  annotations:
+spec:
+  rules:
+    - host: kubernetes.docker.internal
+      http:
+       paths:
+        - path: /
+          backend:
+            serviceName: frontend-service
+            servicePort: 3000

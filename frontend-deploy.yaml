@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: frontend
   name: frontend
@@ -10,28 +9,27 @@ spec:
   selector:
     matchLabels:
       app: frontend
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: frontend
     spec:
       containers:
-      - image: 7000669709/todolist:frontend-v24
+      - image: moonkotte/tests:frontend-v2
         name: react-todolist
         env:
           - name: REACT_APP_HOST
-            value: "backend-service"
+            value: "kubernetes.docker.internal"
           - name: REACT_APP_PORT
-            value: "8000"
+            value: "YOUR_PORT/backend"
         ports:
           - containerPort: 3000
         volumeMounts:
           - mountPath: /var/log/
             name: frontend
-        command: ["npm", "start"]
-        
+        command: ["/bin/sh", "-c"]
+        args:
+          - npm start;
       volumes:
         - name: frontend
           hostPath:

@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: mysql-db
   name: mysql-db
@@ -10,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: mysql-db
-  strategy: {}
   template:
     metadata:
       creationTimestamp: null
@@ -34,4 +32,3 @@ spec:
         - name: mysql-db
           hostPath:
             path: /var/log/
-
