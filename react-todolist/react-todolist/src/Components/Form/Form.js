@@ -12,7 +12,7 @@ const Form = (props) => {
   const [reload, setReload] = useState(false);
 
   const onSubmit = (data, e) => {
-    axios.post('http://127.0.0.1:8000/todolist/api/bucket/', {
+    axios.post('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/', {
       "bucket_name": data['bucket'],
       "created_by": "react"
     }).then(res=>{

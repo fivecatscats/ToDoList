@@ -12,14 +12,14 @@ const ListForm = (props) => {
   const [listName, setListName] = useState('');
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/todolist/api/bucket/'+props.bucketName+'/list/').then(res=>{
+    axios.get('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/'+props.bucketName+'/list/').then(res=>{
       setReload(false);
     }).catch(err => console.log(err))
   }, [reload])
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    axios.post('http://127.0.0.1:8000/todolist/api/bucket/'+props.bucketName+'/list/',{
+    axios.post('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/'+props.bucketName+'/list/',{
         "list_topic": listName,
         "created_by": "react"
       }).then(res=>{

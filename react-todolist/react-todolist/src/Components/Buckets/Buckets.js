@@ -25,7 +25,7 @@ const Buckets = () => {
   const [visible, setRenameBucket] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/todolist/api/bucket/').then(res => {
+    axios.get('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/').then(res => {
       setBuckets(res.data);
       setReload(false);
     }).catch(err => {
@@ -35,7 +35,7 @@ const Buckets = () => {
 
   useEffect(() => {
     if (!bucketName) return;
-    axios.get('http://127.0.0.1:8000/todolist/api/bucket/'+bucketName+'/list/').then(res => {
+    axios.get('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/'+bucketName+'/list/').then(res => {
       setToDoLists(res.data);
       setReload(false);
     }).catch(err => {
@@ -59,7 +59,7 @@ const Buckets = () => {
   }
 
   const updateStatus = ( updatedStatus, bucketName, id) => {
-    axios.put('http://127.0.0.1:8000/todolist/api/bucket/'+bucketName+'/list/'+id+'/',{
+    axios.put('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/'+bucketName+'/list/'+id+'/',{
       "status": updatedStatus
     }).then(res => {
       alert.show('list status is updated!');
@@ -68,7 +68,7 @@ const Buckets = () => {
   }
 
   const deleteBucket = (bucketName) => {
-    axios.delete('http://127.0.0.1:8000/todolist/api/bucket/'+bucketName+'/').then(
+    axios.delete('http://'+`${process.env.REACT_APP_HOST}`+':'+`${process.env.REACT_APP_PORT}`+'/todolist/api/bucket/'+bucketName+'/').then(
       res=>{
         alert.show('Bucket is deleted!');
         setReload(true);
